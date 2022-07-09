@@ -1,3 +1,5 @@
+import { Project } from "../models";
+
 const projects = [
   {
     id: 0,
@@ -18,13 +20,6 @@ const projects = [
     needle: 3,
   },
 ];
-
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  needle: number;
-};
 
 function getProject(id: number): Project | undefined {
   return projects.find(p => p.id === id);
