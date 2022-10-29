@@ -44,6 +44,11 @@
       "tsc-files -p tsconfig.json --noEmit"
     ]
   },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)/"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
