@@ -6,4 +6,9 @@ const createProject = async (name: string): Promise<Project> => {
   return Promise.resolve(new Project(data.id, data.name));
 };
 
-export { createProject };
+const getProjects = async (): Promise<Array<Project>> => {
+  const { data: projects } = await axios.get("/projects");
+  return Promise.resolve(projects);
+};
+
+export { createProject, getProjects };

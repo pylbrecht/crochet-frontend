@@ -16,7 +16,19 @@ const handlers = [
       })
     );
   }),
+  rest.get("/projects", async (_, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json([
+        {
+          id: uuidv4(),
+          name: "a project",
+        },
+      ])
+    );
+  }),
 ];
+
 const server = setupServer(...handlers);
 
 beforeAll(() => server.listen());
@@ -33,4 +45,13 @@ describe("api", () => {
       expect(project).toHaveProperty("id");
     }
   );
+  it("exposes a function to get a list of projects", async () => {
+    const projects = await api.getProjects();
+
+    expect(projects).toHaveLength(1);
+
+    const [project] = projects;
+    expect(project).toHaveProperty("id");
+    expect(project).toHaveProperty("name", "a project");
+  });
 });
