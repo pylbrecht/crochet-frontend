@@ -26,13 +26,19 @@ function App() {
 
     api.createProject(name).then((project) => {
       setProjects([project, ...projects]);
+      setName("");
     });
   };
 
   return (
     <div className="container mx-auto">
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="New project" onChange={handleName} />
+        <input
+          type="text"
+          placeholder="New project"
+          onChange={handleName}
+          value={name}
+        />
         <input type="submit" value="Create" />
       </form>
       <ul>

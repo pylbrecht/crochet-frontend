@@ -2,7 +2,7 @@ import React from "react";
 import { setupServer } from "msw/node";
 import { rest } from "msw";
 import { v4 as uuidv4 } from "uuid";
-import { render, within, screen } from "@testing-library/react";
+import { render, within, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 
@@ -74,5 +74,19 @@ describe("App", () => {
     userEvent.click(submitButton);
 
     expect(await within(projects).findByText("Scarf")).toBeVisible();
+  });
+
+  it("clears the input field upon submitting the form", async () => {
+    render(<App />);
+
+    const input = screen.getByPlaceholderText("New project");
+    const button = screen.getByRole("button");
+
+    userEvent.type(input, "Scarf");
+    userEvent.click(button);
+
+    await waitFor(() => {
+      expect(input).toHaveDisplayValue("");
+    });
   });
 });
