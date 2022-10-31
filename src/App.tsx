@@ -17,6 +17,10 @@ function App() {
 
   return (
     <div className="container mx-auto">
+      <form>
+        <input type="text" placeholder="New project" />
+        <input type="submit" value="Create" />
+      </form>
       <ul>
         {projects.map((project) => (
           <li key={project.id}>{project.name}</li>

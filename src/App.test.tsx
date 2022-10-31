@@ -49,4 +49,15 @@ describe("App", () => {
     expect(await within(projects).findByText("a project")).toBeVisible();
     expect(await within(projects).findByText("another project")).toBeVisible();
   });
+
+  it("shows a form to create a new project", async () => {
+    render(<App />);
+
+    const input = screen.getByPlaceholderText("New project");
+    const button = screen.getByRole("button");
+
+    expect(input).toBeVisible();
+    expect(button).toBeVisible();
+    expect(button).toHaveDisplayValue("Create");
+  });
 });
