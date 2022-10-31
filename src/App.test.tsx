@@ -3,6 +3,7 @@ import { setupServer } from "msw/node";
 import { rest } from "msw";
 import { v4 as uuidv4 } from "uuid";
 import { render, within, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import App from "./App";
 
 const handlers = [
@@ -59,5 +60,19 @@ describe("App", () => {
     expect(input).toBeVisible();
     expect(button).toBeVisible();
     expect(button).toHaveDisplayValue("Create");
+  });
+
+  it("adds a newly created project to the list of projects", async () => {
+    render(<App />);
+
+    const input = screen.getByPlaceholderText("New project");
+    const submitButton = screen.getByRole("button");
+
+    const projects = await screen.findByRole("list");
+
+    userEvent.type(input, "Scarf");
+    userEvent.click(submitButton);
+
+    expect(await within(projects).findByText("Scarf")).toBeVisible();
   });
 });
