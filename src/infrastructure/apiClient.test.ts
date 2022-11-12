@@ -13,6 +13,7 @@ const handlers = [
       ctx.json({
         id: uuidv4(),
         name: name,
+        hook_size: "4.5",
       })
     );
   }),
@@ -23,6 +24,7 @@ const handlers = [
         {
           id: uuidv4(),
           name: "a project",
+          hook_size: "4.5",
         },
       ])
     );
@@ -42,6 +44,7 @@ describe("api", () => {
       const project = await api.createProject(name);
 
       expect(project.name).toBe(name);
+      expect(project.hookSize).toBe("4.5");
       expect(project).toHaveProperty("id");
     }
   );
@@ -53,5 +56,6 @@ describe("api", () => {
     const [project] = projects;
     expect(project).toHaveProperty("id");
     expect(project).toHaveProperty("name", "a project");
+    expect(project).toHaveProperty("hookSize", "4.5");
   });
 });
